@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PDM Project</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="strProximasTarefas">Proximas Tarefas</string>
+    <string name="title_activity_nova_tarefa">NovaTarefaActivity</string>
+    <string name="strDisciplina">Disciplina</string>
+    <string name="strAtividade">Atividade: </string>
+    <string name="strDataHora">Data / Hora</string>
+    <string name="strLembrete">Lembrete</string>
+    <string name="strOk">OK</string>
+    <string name="title_activity_atividades">AtividadesActivity</string>
+
+</resources>
