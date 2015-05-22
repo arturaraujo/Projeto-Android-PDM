@@ -11,5 +11,7 @@
     <string name="strLembrete">Lembrete</string>
     <string name="strOk">OK</string>
     <string name="title_activity_atividades">AtividadesActivity</string>
+    <string name="title_activity_disciplinas">DisciplinasActivity</string>
+    <string name="strDisciplinas">Disciplinas</string>
 
 </resources>
