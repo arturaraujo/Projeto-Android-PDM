@@ -75,6 +75,9 @@ public class MainActivity extends Activity {
 		case ID_MENU_GERENCIAR_ATIVIDADES:
 			startActivity(new Intent(this, AtividadesActivity.class));
 			break;
+		case ID_MENU_GERENCIAR_DISCIPLINA:
+			startActivity(new Intent(this, DisciplinasActivity.class));
+			break;
 		}
 		
 		return true;
