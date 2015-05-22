@@ -12,9 +12,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import br.edu.ifpb.tsi.pdm.pdmproject.dao.AtividadeDAO;
 import br.edu.ifpb.tsi.pdm.pdmproject.dao.DisciplinaDAO;
-import br.edu.ifpb.tsi.pdm.pdmproject.model.Atividade;
 import br.edu.ifpb.tsi.pdm.pdmproject.model.Disciplina;
 
 public class DisciplinasActivity extends Activity {
