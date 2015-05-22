@@ -21,9 +21,11 @@ import br.edu.ifpb.tsi.pdm.pdmproject.model.Tarefa;
 public class MainActivity extends Activity {
 	
 	private static final int ID_MENU_NOVA_TAREFA = 1;
-	private static final int ID_MENU_GERENCIAR_DISCIPLINA = 2;
+	private static final int ID_MENU_GERENCIAR_DISCIPLINA = 3;
+	private static final int ID_MENU_GERENCIAR_ATIVIDADES = 2;
 	private static final String MENU_NOVA_TAREFA = "Nova tarefa";
 	private static final String MENU_GERENCIAR_DISCIPLINA = "Gerenciar Disciplinas";
+	private static final String MENU_GERENCIAR_ATIVIDADES = "Gerenciar Atividades";
 
 	private ListView lvProximasTarefas;
 
@@ -56,7 +58,8 @@ public class MainActivity extends Activity {
 		super.onCreateOptionsMenu(menu);
 		
 		menu.add(1, ID_MENU_NOVA_TAREFA, ID_MENU_NOVA_TAREFA, MENU_NOVA_TAREFA);
-		menu.add(1, ID_MENU_GERENCIAR_DISCIPLINA, ID_MENU_GERENCIAR_DISCIPLINA, MENU_GERENCIAR_DISCIPLINA);
+		menu.add(2, ID_MENU_GERENCIAR_DISCIPLINA, ID_MENU_GERENCIAR_DISCIPLINA, MENU_GERENCIAR_DISCIPLINA);
+		menu.add(2, ID_MENU_GERENCIAR_ATIVIDADES, ID_MENU_GERENCIAR_ATIVIDADES, MENU_GERENCIAR_ATIVIDADES);
 		
 		return true;
 	}
@@ -68,6 +71,9 @@ public class MainActivity extends Activity {
 		switch (item.getItemId()) {
 		case ID_MENU_NOVA_TAREFA:
 			startActivity(new Intent(this, NovaTarefaActivity.class));
+			break;
+		case ID_MENU_GERENCIAR_ATIVIDADES:
+			startActivity(new Intent(this, AtividadesActivity.class));
 			break;
 		}
 		
