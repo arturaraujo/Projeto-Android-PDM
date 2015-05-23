@@ -25,6 +25,8 @@ public class AtividadesActivity extends Activity {
 	
 	AtividadeDAO daoAtividade;
 	
+	ArrayAdapter<Atividade> adapterAtividades;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,8 +38,8 @@ public class AtividadesActivity extends Activity {
 		
 		this.atividades = daoAtividade.get();
 		
-		ArrayAdapter<Atividade> adapter = new ArrayAdapter<Atividade>(this, android.R.layout.simple_list_item_1, atividades);
-		this.lvAtividades.setAdapter(adapter);
+		adapterAtividades = new ArrayAdapter<Atividade>(this, android.R.layout.simple_list_item_1, atividades);
+		this.lvAtividades.setAdapter(adapterAtividades);
 	}
 	
 	@Override
@@ -67,7 +69,10 @@ public class AtividadesActivity extends Activity {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					daoAtividade.inserir(new Atividade(input.getText().toString()));
+					Atividade atividade = new Atividade(input.getText().toString());
+					daoAtividade.inserir(atividade);
+					adapterAtividades.add(daoAtividade.ler(atividade.getNome()));
+					adapterAtividades.notifyDataSetChanged();
 				}
 			});
 			

@@ -5,6 +5,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,8 +29,16 @@ public class MainActivity extends Activity {
 	private static final String MENU_NOVA_TAREFA = "Nova tarefa";
 	private static final String MENU_GERENCIAR_DISCIPLINA = "Gerenciar Disciplinas";
 	private static final String MENU_GERENCIAR_ATIVIDADES = "Gerenciar Atividades";
+	
+	private static final int IDEDITAR = 0;
 
 	private ListView lvProximasTarefas;
+	
+	TarefaDAO daoTarefa;
+	
+	List<Tarefa> tarefas;
+	
+	ArrayAdapter<Tarefa> adapterTarefas;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,21 +47,13 @@ public class MainActivity extends Activity {
 
 		this.carregaComponentes();
 		
-		TarefaDAO daoTarefa = new TarefaDAO(this);
+		daoTarefa = new TarefaDAO(this);
+		tarefas = daoTarefa.get();
 		
-		List<String> string = new ArrayList<String>();
-		List<Tarefa> tarefas = daoTarefa.get();
+		adapterTarefas = new ArrayAdapter<Tarefa>(MainActivity.this, android.R.layout.simple_list_item_1, tarefas);
 		
-		for (Tarefa f : tarefas){
-			StringBuilder builder = new StringBuilder();
-			builder.append(f.getAtividade().getNome() + " de ");
-			builder.append(f.getDisciplina().getNome() + ". \n");
-			builder.append("Data: " + f.getDataHora().get(Calendar.DAY_OF_MONTH) + "/" + f.getDataHora().get(Calendar.MONTH) + "/" + f.getDataHora().get(Calendar.YEAR));
-			string.add(builder.toString());
-		}
-		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, string);
-		this.lvProximasTarefas.setAdapter(adapter);
+		//adapterTarefas = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, string);
+		this.lvProximasTarefas.setAdapter(adapterTarefas);
 	}
 	
 	@Override
@@ -92,9 +95,28 @@ public class MainActivity extends Activity {
 	public class OnAtividadeListener implements OnItemClickListener {
 
 		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
+		public void onItemClick(AdapterView<?> parent, View view, final int position,
 				long id) {
-			Log.d("tag", position + "  " + id);
+			Log.d("tag", "  O id do bd e: " + tarefas.get(position).getId() +  " e o id clicado eh: " + id);
+			AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+			String[] opcoes = {"Editar", "Excluir", "Compartilhar"};
+			ArrayAdapter<String> adapterOpcoes = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, opcoes);
+			builder.setAdapter(adapterOpcoes, new OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Log.i("tag", "Menu selecionado: " + which);
+					switch (which){
+					case 1:
+						daoTarefa.remover(tarefas.get(position).getId());
+						adapterTarefas.remove(tarefas.get(position));
+						adapterTarefas.notifyDataSetChanged();
+						break;
+					}
+				}
+			});
+			builder.create();
+			builder.show();
 			
 		}
 

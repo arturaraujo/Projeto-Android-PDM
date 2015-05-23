@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 import br.edu.ifpb.tsi.pdm.pdmproject.dao.DisciplinaDAO;
 import br.edu.ifpb.tsi.pdm.pdmproject.model.Disciplina;
 
@@ -24,6 +25,8 @@ public class DisciplinasActivity extends Activity {
 	
 	DisciplinaDAO daoDisciplinas;
 	
+	ArrayAdapter<Disciplina> adapterDisciplinas;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,8 +38,8 @@ public class DisciplinasActivity extends Activity {
 		
 		this.disciplinas = daoDisciplinas.get();
 		
-		ArrayAdapter<Disciplina> adapter = new ArrayAdapter<Disciplina>(this, android.R.layout.simple_list_item_1, disciplinas);
-		this.lvDisciplinas.setAdapter(adapter);
+		adapterDisciplinas = new ArrayAdapter<Disciplina>(this, android.R.layout.simple_list_item_1, disciplinas);
+		this.lvDisciplinas.setAdapter(adapterDisciplinas);
 	}
 	
 	@Override
@@ -66,7 +69,10 @@ public class DisciplinasActivity extends Activity {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					daoDisciplinas.inserir(new Disciplina(input.getText().toString()));
+					Disciplina disciplina = new Disciplina(input.getText().toString());
+					daoDisciplinas.inserir(disciplina);
+					adapterDisciplinas.add(daoDisciplinas.ler(disciplina.getNome()));
+					adapterDisciplinas.notifyDataSetChanged();
 				}
 			});
 			
