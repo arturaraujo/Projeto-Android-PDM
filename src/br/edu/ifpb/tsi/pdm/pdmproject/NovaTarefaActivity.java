@@ -7,10 +7,7 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
-//import android.content.DialogInterface;
-//import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -106,9 +103,10 @@ public class NovaTarefaActivity extends Activity {
 	    }
 
 		@Override
-	    public void onNothingSelected(AdapterView parent) {
-	       Log.w("tag", "Passou em nothing selected");
-	    }
+		public void onNothingSelected(AdapterView<?> parent) {
+		}
+
+		
 	}
 	
 	public class DisciplinaListener implements OnItemSelectedListener {
@@ -118,24 +116,20 @@ public class NovaTarefaActivity extends Activity {
 	    }
 
 		@Override
-	    public void onNothingSelected(AdapterView parent) {
-	       Log.w("tag", "Passou em nothing selected");
-	    }
+		public void onNothingSelected(AdapterView<?> parent) {
+		}
+
 	}
 	
 	public class OnClickBotao implements OnClickListener{
 
 		@Override
 		public void onClick(View v) {
-			//c.add(Calendar.DATE, 1);
 			Calendar notificacao = Calendar.getInstance();
 			notificacao.add(Calendar.SECOND, 7);
 			Tarefa tarefa =  new Tarefa(atividades.get(posicaoAtividade), disciplinas.get(posicaoDisciplina), c, notificacao);
 			
 			daoTarefa.inserir(tarefa);
-			//Log.v("tag", "O id da tarefa e: " + tarefa.getId());
-			
-			//Log.e("tag",  notificacao.getTimeInMillis()+"");
 			
 			Intent intent = new Intent(NovaTarefaActivity.this, AlarmReceiver.class);
 			PendingIntent pi = PendingIntent.getBroadcast(NovaTarefaActivity.this, 0, intent, 0);
@@ -145,12 +139,8 @@ public class NovaTarefaActivity extends Activity {
 			setResult(RESULT_OK);
 			finish();
 			
-			//TODO gerar notificaï¿½ï¿½o pra data setada.
+			//TODO gerar notificação pra data setada.
 		}
 
 	}
-	
-
-	       
-
 }
