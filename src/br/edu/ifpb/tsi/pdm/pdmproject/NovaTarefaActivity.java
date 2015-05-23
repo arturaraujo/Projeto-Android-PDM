@@ -132,6 +132,10 @@ public class NovaTarefaActivity extends Activity {
 			daoTarefa.inserir(tarefa);
 			
 			Intent intent = new Intent(NovaTarefaActivity.this, AlarmReceiver.class);
+			intent.putExtra("ATIVIDADE", tarefa.getAtividade().toString());
+			intent.putExtra("DISCIPLINA", tarefa.getDisciplina().toString());
+			intent.putExtra("DATA_HORA", tarefa.getDataHora());
+			
 			PendingIntent pi = PendingIntent.getBroadcast(NovaTarefaActivity.this, 0, intent, 0);
 			AlarmManager manager = (AlarmManager)getSystemService(ALARM_SERVICE);
 			manager.set(AlarmManager.RTC, notificacao.getTimeInMillis(), pi);
