@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 //import android.content.DialogInterface;
 //import android.content.DialogInterface.OnClickListener;
@@ -125,13 +127,21 @@ public class NovaTarefaActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			c.add(Calendar.DATE, 1);
+			//c.add(Calendar.DATE, 1);
 			Calendar notificacao = Calendar.getInstance();
-			notificacao.add(Calendar.MINUTE, 1);
+			notificacao.add(Calendar.SECOND, 7);
 			Tarefa tarefa =  new Tarefa(atividades.get(posicaoAtividade), disciplinas.get(posicaoDisciplina), c, notificacao);
 			
 			daoTarefa.inserir(tarefa);
-			Log.v("tag", "O id da tarefa e: " + tarefa.getId());
+			//Log.v("tag", "O id da tarefa e: " + tarefa.getId());
+			
+			//Log.e("tag",  notificacao.getTimeInMillis()+"");
+			
+			Intent intent = new Intent(NovaTarefaActivity.this, AlarmReceiver.class);
+			PendingIntent pi = PendingIntent.getBroadcast(NovaTarefaActivity.this, 0, intent, 0);
+			AlarmManager manager = (AlarmManager)getSystemService(ALARM_SERVICE);
+			manager.set(AlarmManager.RTC, notificacao.getTimeInMillis(), pi);
+			
 			setResult(RESULT_OK);
 			finish();
 			
@@ -139,4 +149,8 @@ public class NovaTarefaActivity extends Activity {
 		}
 
 	}
+	
+
+	       
+
 }

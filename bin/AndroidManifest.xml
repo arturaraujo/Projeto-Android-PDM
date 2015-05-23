@@ -34,6 +34,8 @@
             android:name=".DisciplinasActivity"
             android:label="@string/title_activity_disciplinas" >
         </activity>
+        <service android:name="br.edu.ifpb.tsi.pdm.pdmproject.AlarmService" android:enabled="true"></service>
+        <receiver android:name="br.edu.ifpb.tsi.pdm.pdmproject.AlarmReceiver"></receiver>
     </application>
 
 </manifest>
