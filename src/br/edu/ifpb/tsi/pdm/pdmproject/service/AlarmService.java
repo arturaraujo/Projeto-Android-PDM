@@ -24,8 +24,9 @@ public class AlarmService extends Service{
 		notification.setContentText(intent.getAction());
 
 		notification.setContentTitle(intent.getStringExtra("ATIVIDADE") + " de " + intent.getStringExtra("DISCIPLINA"));
-		notification.setContentInfo("Em " + intent.getStringExtra("DATA_HORA"));
-		notification.setSmallIcon(R.drawable.ic_launcher);
+		notification.setContentText("Hora de estudar!");
+		notification.setContentInfo("Entrega: " + intent.getStringExtra("DATA_HORA") + ".");
+		notification.setSmallIcon(R.drawable.small);
 		notification.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
 		notification.setAutoCancel(true);
 

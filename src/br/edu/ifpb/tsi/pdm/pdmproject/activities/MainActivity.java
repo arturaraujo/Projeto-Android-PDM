@@ -1,7 +1,5 @@
 package br.edu.ifpb.tsi.pdm.pdmproject.activities;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import android.app.Activity;
@@ -19,8 +17,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import br.edu.ifpb.tsi.pdm.pdmproject.R;
-import br.edu.ifpb.tsi.pdm.pdmproject.R.id;
-import br.edu.ifpb.tsi.pdm.pdmproject.R.layout;
 import br.edu.ifpb.tsi.pdm.pdmproject.dao.TarefaDAO;
 import br.edu.ifpb.tsi.pdm.pdmproject.model.Tarefa;
 
@@ -33,7 +29,11 @@ public class MainActivity extends Activity {
 	private static final String MENU_GERENCIAR_DISCIPLINA = "Gerenciar Disciplinas";
 	private static final String MENU_GERENCIAR_ATIVIDADES = "Gerenciar Atividades";
 	
-	private static final int IDEDITAR = 0;
+	private static final String[] OPCOES_TAREFA = {"Editar", "Excluir", "Compartilhar"};
+	
+	private static final int EDITAR = 0;
+	private static final int EXCLUIR = 1;
+	private static final int COMPARTILHAR = 2;
 
 	private ListView lvProximasTarefas;
 	
@@ -100,14 +100,12 @@ public class MainActivity extends Activity {
 	private void refreshAdapter(){
 		tarefas = daoTarefa.get();
 		adapterTarefas = new ArrayAdapter<Tarefa>(MainActivity.this, android.R.layout.simple_list_item_1, tarefas);
-		//this.lvProximasTarefas.setAdapter(adapterTarefas);
 		adapterTarefas.notifyDataSetChanged();
 		this.lvProximasTarefas.setAdapter(adapterTarefas);
 	}
 
 	private void carregaComponentes() {
 		this.lvProximasTarefas = (ListView) findViewById(R.id.lvProximasTarefas);
-		
 		this.lvProximasTarefas.setOnItemClickListener(new OnAtividadeListener());
 	}
 
@@ -116,28 +114,29 @@ public class MainActivity extends Activity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, final int position,
 				long id) {
-			Log.d("tag", "  O id do bd e: " + tarefas.get(position).getId() +  " e o id clicado eh: " + id);
 			AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-			String[] opcoes = {"Editar", "Excluir", "Compartilhar"};
-			ArrayAdapter<String> adapterOpcoes = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, opcoes);
+			ArrayAdapter<String> adapterOpcoes = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, OPCOES_TAREFA);
 			builder.setAdapter(adapterOpcoes, new OnClickListener() {
-				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					Log.i("tag", "Menu selecionado: " + which);
 					switch (which){
-					case 1:
+					case EXCLUIR:
 						daoTarefa.remover(tarefas.get(position).getId());
 						adapterTarefas.remove(tarefas.get(position));
 						adapterTarefas.notifyDataSetChanged();
 						break;
+					case COMPARTILHAR:
+						Intent intent = new Intent(Intent.ACTION_SEND);
+						intent.setType("text/plain");
+						intent.putExtra(Intent.EXTRA_TEXT, tarefas.get(position).toString());
+						
+						startActivity(Intent.createChooser(intent, "Como voce quer compartilhar?"));
 					}
 				}
 			});
 			builder.create();
 			builder.show();
-			
 		}
-
 	}
 }
