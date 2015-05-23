@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import br.edu.ifpb.tsi.pdm.pdmproject.model.Atividade;
+import br.edu.ifpb.tsi.pdm.pdmproject.model.Disciplina;
 
 public class AtividadeDAO {
 	private static final String TABELA_ATIVIDADE = "atividade";
@@ -34,6 +35,21 @@ public class AtividadeDAO {
 		String[] colunas = { "id", "nome" };
 		String[] where = { Integer.toString(id) };
 		Cursor c = banco.query(TABELA_ATIVIDADE, colunas, "id = ?", where, null, null, "nome");
+		Atividade atividade = new Atividade();
+		if (c.getCount() > 0) {
+			c.moveToFirst();
+			do {
+				atividade.setId(c.getInt(c.getColumnIndex("id")));
+				atividade.setNome(c.getString(c.getColumnIndex("nome")));
+			} while (c.moveToNext());
+		}
+		return atividade;
+	}
+	
+	public Atividade ler(String nome){
+		String[] colunas = { "id", "nome" };
+		String[] where = { nome };
+		Cursor c = banco.query(TABELA_ATIVIDADE, colunas, "nome = ?", where, null, null, "nome");
 		Atividade atividade = new Atividade();
 		if (c.getCount() > 0) {
 			c.moveToFirst();

@@ -31,7 +31,7 @@ public class TarefaDAO {
 	}
 	
 	public void remover(int codigo){
-		banco.delete(TABELA_TAREFA, "codigo = ?", new String[]{Integer.toString(codigo)} );
+		banco.delete(TABELA_TAREFA, "id = ?", new String[]{Integer.toString(codigo)} );
 	}
 	
 	public List<Tarefa> get(){

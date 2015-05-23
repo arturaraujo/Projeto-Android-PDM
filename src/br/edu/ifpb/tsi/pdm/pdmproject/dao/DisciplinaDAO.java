@@ -44,6 +44,21 @@ public class DisciplinaDAO{
 		}
 		return disciplina;
 	}
+	
+	public Disciplina ler(String nome){
+		String[] colunas = { "id", "nome" };
+		String[] where = { nome };
+		Cursor c = banco.query(TABELA_DISCIPLINA, colunas, "nome = ?", where, null, null, "nome");
+		Disciplina disciplina = new Disciplina();
+		if (c.getCount() > 0) {
+			c.moveToFirst();
+			do {
+				disciplina.setId(c.getInt(c.getColumnIndex("id")));
+				disciplina.setNome(c.getString(c.getColumnIndex("nome")));
+			} while (c.moveToNext());
+		}
+		return disciplina;
+	}
 
 	public List<Disciplina> get() {
 		List<Disciplina> lista = new ArrayList<Disciplina>();
