@@ -40,7 +40,6 @@ public class BancoHelper extends SQLiteOpenHelper {
 	
 	@Override
 	public synchronized void close() {
-		// TODO Auto-generated method stub
 		super.close();
 	}
 }
