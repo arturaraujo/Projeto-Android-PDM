@@ -51,8 +51,6 @@ public class MainActivity extends Activity {
 		tarefas = daoTarefa.get();
 		
 		adapterTarefas = new ArrayAdapter<Tarefa>(MainActivity.this, android.R.layout.simple_list_item_1, tarefas);
-		
-		//adapterTarefas = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, string);
 		this.lvProximasTarefas.setAdapter(adapterTarefas);
 	}
 	
@@ -73,7 +71,7 @@ public class MainActivity extends Activity {
 		
 		switch (item.getItemId()) {
 		case ID_MENU_NOVA_TAREFA:
-			startActivity(new Intent(this, NovaTarefaActivity.class));
+			startActivityForResult(new Intent(this, NovaTarefaActivity.class), ID_MENU_NOVA_TAREFA);
 			break;
 		case ID_MENU_GERENCIAR_ATIVIDADES:
 			startActivity(new Intent(this, AtividadesActivity.class));
@@ -84,6 +82,24 @@ public class MainActivity extends Activity {
 		}
 		
 		return true;
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == RESULT_OK){
+			if(requestCode == ID_MENU_NOVA_TAREFA){
+				refreshAdapter();
+			}
+		}
+	}
+	
+	private void refreshAdapter(){
+		tarefas = daoTarefa.get();
+		adapterTarefas = new ArrayAdapter<Tarefa>(MainActivity.this, android.R.layout.simple_list_item_1, tarefas);
+		//this.lvProximasTarefas.setAdapter(adapterTarefas);
+		adapterTarefas.notifyDataSetChanged();
+		this.lvProximasTarefas.setAdapter(adapterTarefas);
 	}
 
 	private void carregaComponentes() {

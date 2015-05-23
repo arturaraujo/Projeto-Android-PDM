@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 //import android.content.DialogInterface;
 //import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
@@ -130,6 +131,9 @@ public class NovaTarefaActivity extends Activity {
 			Tarefa tarefa =  new Tarefa(atividades.get(posicaoAtividade), disciplinas.get(posicaoDisciplina), c, notificacao);
 			
 			daoTarefa.inserir(tarefa);
+			Log.v("tag", "O id da tarefa e: " + tarefa.getId());
+			setResult(RESULT_OK);
+			finish();
 			
 			//TODO gerar notifica��o pra data setada.
 		}
