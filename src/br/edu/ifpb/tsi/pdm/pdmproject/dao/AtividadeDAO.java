@@ -24,7 +24,16 @@ public class AtividadeDAO {
 		cv.put("nome", atividade.getNome());
 
 		banco.insert(TABELA_ATIVIDADE, null, cv);
+		
 	}
+	
+	public void update(Atividade atividade){
+		ContentValues cv = new ContentValues();
+		cv.put("nome", atividade.getNome());
+		String[] idAtividade = {atividade.getId() + ""};
+		this.banco.update(TABELA_ATIVIDADE, cv, " id = ?", idAtividade);
+	}
+	
 
 	public void remover(int id) {
 		banco.delete(TABELA_ATIVIDADE, "id = ?",
