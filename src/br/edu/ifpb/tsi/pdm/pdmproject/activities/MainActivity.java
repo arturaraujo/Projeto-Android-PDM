@@ -16,7 +16,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import br.edu.ifpb.tsi.pdm.pdmproject.R;
+import br.edu.ifpb.tsi.pdm.pdmproject.dao.AtividadeDAO;
+import br.edu.ifpb.tsi.pdm.pdmproject.dao.DisciplinaDAO;
 import br.edu.ifpb.tsi.pdm.pdmproject.dao.TarefaDAO;
+import br.edu.ifpb.tsi.pdm.pdmproject.model.Atividade;
+import br.edu.ifpb.tsi.pdm.pdmproject.model.Disciplina;
 import br.edu.ifpb.tsi.pdm.pdmproject.model.Tarefa;
 
 public class MainActivity extends Activity {
@@ -38,6 +42,8 @@ public class MainActivity extends Activity {
 	private ListView lvProximasTarefas;
 	
 	TarefaDAO daoTarefa;
+	DisciplinaDAO daoDisciplina;
+	AtividadeDAO daoAtividade;
 	
 	List<Tarefa> tarefas;
 	
@@ -49,14 +55,16 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		this.carregaComponentes();
+		this.carregaBanco();
 		
-		daoTarefa = new TarefaDAO(this);
 		tarefas = daoTarefa.get();
 		
 		if(tarefas == null || tarefas.isEmpty()){
 			AlertDialog.Builder dialog =  new AlertDialog.Builder(this);
 			dialog.setTitle("Nenhuma Tarefa");
 			dialog.setMessage("Você não tem nenhuma tarefa!");
+			dialog.setNeutralButton("OK", null);
+			dialog.create().show();
 		}
 		
 		adapterTarefas = new ArrayAdapter<Tarefa>(MainActivity.this, android.R.layout.simple_list_item_1, tarefas);
@@ -80,6 +88,27 @@ public class MainActivity extends Activity {
 		
 		switch (item.getItemId()) {
 		case ID_MENU_NOVA_TAREFA:
+			List<Atividade> atividades = daoAtividade.get();
+			List<Disciplina> disciplinas = daoDisciplina.get();
+			
+			if (atividades == null || atividades.isEmpty()){
+				AlertDialog.Builder dialog =  new AlertDialog.Builder(this);
+				dialog.setTitle("Nenhuma atividade cadastrada");
+				dialog.setMessage("Para criar tarefas é necessário primeiro ter atividades cadastradas!");
+				dialog.setNeutralButton("OK", null);
+				dialog.create().show();
+				break;
+			}
+			
+			if (disciplinas == null || disciplinas.isEmpty()){
+				AlertDialog.Builder dialog =  new AlertDialog.Builder(this);
+				dialog.setTitle("Nenhuma disciplina cadastrada");
+				dialog.setMessage("Para criar tarefas é necessário primeiro ter disciplina cadastradas!");
+				dialog.setNeutralButton("OK", null);
+				dialog.create().show();
+				break;
+			}
+			
 			startActivityForResult(new Intent(this, NovaTarefaActivity.class), ID_MENU_NOVA_TAREFA);
 			break;
 		case ID_MENU_GERENCIAR_ATIVIDADES:
@@ -113,6 +142,12 @@ public class MainActivity extends Activity {
 	private void carregaComponentes() {
 		this.lvProximasTarefas = (ListView) findViewById(R.id.lvProximasTarefas);
 		this.lvProximasTarefas.setOnItemClickListener(new OnAtividadeListener());
+	}
+	
+	private void carregaBanco(){
+		this.daoAtividade = new AtividadeDAO(this);
+		this.daoDisciplina = new DisciplinaDAO(this);
+		this.daoTarefa = new TarefaDAO(this);
 	}
 
 	public class OnAtividadeListener implements OnItemClickListener {
