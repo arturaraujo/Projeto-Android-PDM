@@ -28,9 +28,10 @@ public class MainActivity extends Activity {
 	private static final String MENU_GERENCIAR_DISCIPLINA = "Gerenciar Disciplinas";
 	private static final String MENU_GERENCIAR_ATIVIDADES = "Gerenciar Atividades";
 	
-	private static final String[] OPCOES_TAREFA = {"Editar", "Excluir", "Compartilhar"};
+	private static final String[] OPCOES_TAREFA = {"Ver", /*"Editar", */"Excluir", "Compartilhar"};
 	
-	private static final int EDITAR = 0;
+	//private static final int EDITAR = 0;
+	private static final int VER = 0;
 	private static final int EXCLUIR = 1;
 	private static final int COMPARTILHAR = 2;
 
@@ -51,6 +52,12 @@ public class MainActivity extends Activity {
 		
 		daoTarefa = new TarefaDAO(this);
 		tarefas = daoTarefa.get();
+		
+		if(tarefas == null || tarefas.isEmpty()){
+			AlertDialog.Builder dialog =  new AlertDialog.Builder(this);
+			dialog.setTitle("Nenhuma Tarefa");
+			dialog.setMessage("Você não tem nenhuma tarefa!");
+		}
 		
 		adapterTarefas = new ArrayAdapter<Tarefa>(MainActivity.this, android.R.layout.simple_list_item_1, tarefas);
 		this.lvProximasTarefas.setAdapter(adapterTarefas);

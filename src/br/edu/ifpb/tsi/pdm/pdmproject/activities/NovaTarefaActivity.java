@@ -38,11 +38,10 @@ import br.edu.ifpb.tsi.pdm.pdmproject.model.Tarefa;
 public class NovaTarefaActivity extends Activity {
 	
 	Spinner spnAtividade, spnDisciplina;
-	DatePicker datePickerTarefa, datePickerNotificacao;
-	TimePicker timePickerHoraNotificacao;
 	Switch switchDefinirLembrete;
 	TextView tvDataTarefa, tvDataNotificacao, tvHoraNotificacao;
 	Button btnDefinirDataTarefa, btnDefinirDataNotificacao, btnDefinirHoraNotificacao, btnCriar;
+	boolean notificacao;
 	
 	DatePickerDialog.OnDateSetListener date;
 	TimePickerDialog.OnTimeSetListener time;
@@ -54,7 +53,6 @@ public class NovaTarefaActivity extends Activity {
 	
 	List<Disciplina> disciplinas;
 	List<Atividade> atividades;
-	boolean notificacao;
 	
 	Calendar calendarTarefa = Calendar.getInstance();
 	Calendar calendarNotificacao = Calendar.getInstance();
@@ -110,23 +108,18 @@ public class NovaTarefaActivity extends Activity {
 		this.btnDefinirDataTarefa.setOnClickListener(new OnDataClickListener());
 		this.btnDefinirDataNotificacao.setOnClickListener(new OnDataClickListener());
 		this.btnDefinirHoraNotificacao.setOnClickListener(new OnHoraClickListener());
-		//this.btnDefinirHoraNotificacao.setOnClickListener(l);
 		this.date = new DataListenerTarefa();
 		this.time = new HoraListenerTarefa();
 	}
 	
 	private void habilitarNotificacao(boolean enabled){
-//		this.tvDataNotificacao.setEnabled(enabled);
-//		this.btnDefinirDataNotificacao.setEnabled(enabled);
-//		this.tvHoraNotificacao.setEnabled(enabled);
-//		this.btnDefinirHoraNotificacao.setEnabled(enabled);
 		int visibility = enabled ? View.VISIBLE : View.INVISIBLE;
 		
 		this.tvDataNotificacao.setVisibility(visibility);
 		this.btnDefinirDataNotificacao.setVisibility(visibility);
 		this.tvHoraNotificacao.setVisibility(visibility);
 		this.btnDefinirHoraNotificacao.setVisibility(visibility);
-		notificacao = enabled;
+		this.notificacao = enabled;
 	}
 
 	private class OnClickSwitch implements OnClickListener{
@@ -238,24 +231,24 @@ public class NovaTarefaActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			//Calendar notificacao = Calendar.getInstance();
-			//notificacao.add(Calendar.SECOND, 7);
-			Tarefa tarefa =  new Tarefa(atividades.get(posicaoAtividade), disciplinas.get(posicaoDisciplina), calendarTarefa, calendarNotificacao);
+			Tarefa tarefa =  new Tarefa(atividades.get(posicaoAtividade), disciplinas.get(posicaoDisciplina), calendarTarefa, notificacao ? calendarNotificacao : null);
 			
 			daoTarefa.inserir(tarefa);
 			
-			Intent intent = new Intent(NovaTarefaActivity.this, AlarmReceiver.class);
-			intent.putExtra("ATIVIDADE", tarefa.getAtividade().toString());
-			intent.putExtra("DISCIPLINA", tarefa.getDisciplina().toString());
-			
-			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-			String dataHora = format.format(tarefa.getDataHora().getTime());
-			intent.putExtra("DATA_HORA", dataHora);
-			
-			PendingIntent pi = PendingIntent.getBroadcast(NovaTarefaActivity.this, 0, intent, 0);
-			AlarmManager manager = (AlarmManager)getSystemService(ALARM_SERVICE);
-			manager.set(AlarmManager.RTC, calendarNotificacao.getTimeInMillis(), pi);
-			
+			if(notificacao){
+				Intent intent = new Intent(NovaTarefaActivity.this, AlarmReceiver.class);
+				intent.putExtra("ATIVIDADE", tarefa.getAtividade().toString());
+				intent.putExtra("DISCIPLINA", tarefa.getDisciplina().toString());
+				
+				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+				String dataHora = format.format(tarefa.getDataHora().getTime());
+				intent.putExtra("DATA_HORA", dataHora);
+				
+				PendingIntent pi = PendingIntent.getBroadcast(NovaTarefaActivity.this, 0, intent, 0);
+				AlarmManager manager = (AlarmManager)getSystemService(ALARM_SERVICE);
+				manager.set(AlarmManager.RTC, calendarNotificacao.getTimeInMillis(), pi);
+			}
+
 			setResult(RESULT_OK);
 			finish();
 		}
