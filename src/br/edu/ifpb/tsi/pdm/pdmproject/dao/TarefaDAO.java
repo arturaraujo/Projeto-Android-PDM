@@ -43,7 +43,6 @@ public class TarefaDAO {
 		if(c.getCount() > 0){
 			c.moveToFirst();
 			DisciplinaDAO daoDisciplina = new DisciplinaDAO(context);
-			DisciplinaDAO daoDisciplina1 = new DisciplinaDAO(context);
 			AtividadeDAO daoAtividade = new AtividadeDAO(context);
 			do{
 				tarefa = new Tarefa();

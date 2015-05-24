@@ -8,7 +8,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import br.edu.ifpb.tsi.pdm.pdmproject.model.Atividade;
-import br.edu.ifpb.tsi.pdm.pdmproject.model.Disciplina;
 
 public class AtividadeDAO {
 	private static final String TABELA_ATIVIDADE = "atividade";
