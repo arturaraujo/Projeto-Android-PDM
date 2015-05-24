@@ -10,6 +10,8 @@ import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.PendingIntent;
+import android.app.TimePickerDialog;
+import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -43,6 +45,7 @@ public class NovaTarefaActivity extends Activity {
 	Button btnDefinirDataTarefa, btnDefinirDataNotificacao, btnDefinirHoraNotificacao, btnCriar;
 	
 	DatePickerDialog.OnDateSetListener date;
+	TimePickerDialog.OnTimeSetListener time;
 
 	AtividadeDAO daoAtividade;
 	DisciplinaDAO daoDisciplina;
@@ -181,6 +184,16 @@ public class NovaTarefaActivity extends Activity {
 					calendarTarefa.get(Calendar.DAY_OF_MONTH)).show();
 		}
 		
+	}
+	
+	public class HoraListenerTarefa implements OnTimeSetListener{
+
+		@Override
+		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+			calendarNotificacao.set(Calendar.HOUR_OF_DAY, hourOfDay);
+			calendarNotificacao.set(Calendar.MINUTE, minute);
+			tvHoraNotificacao.setText(formatHora.format(calendarNotificacao.getTime()));
+		}
 	}
 	
 	public class DataListenerTarefa implements OnDateSetListener{
