@@ -5,13 +5,17 @@ import java.util.List;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 import br.edu.ifpb.tsi.pdm.pdmproject.R;
 import br.edu.ifpb.tsi.pdm.pdmproject.dao.AtividadeDAO;
 import br.edu.ifpb.tsi.pdm.pdmproject.model.Atividade;
@@ -19,6 +23,10 @@ import br.edu.ifpb.tsi.pdm.pdmproject.model.Atividade;
 public class AtividadesActivity extends Activity {
 	private static final int ID_MENU_NOVA_ATIVIDADE = 1;
 	private static final String MENU_NOVA_ATIVIDADE = "Nova Atividade";
+	
+	private static final int EDITAR= 0;
+	private static final int EXCLUIR= 1;
+	private static final String[] OPCOES_ATIVIDADE = {"Editar", "Excluir"};
 
 	ListView lvAtividades;
 	List<Atividade> atividades;
@@ -56,7 +64,6 @@ public class AtividadesActivity extends Activity {
 		super.onCreateOptionsMenu(menu);
 		
 		menu.add(0, ID_MENU_NOVA_ATIVIDADE, ID_MENU_NOVA_ATIVIDADE, MENU_NOVA_ATIVIDADE);
-		//menu.add(0, SOBRE, 2, "Sobre");
 		
 		return true;
 	}
@@ -101,12 +108,67 @@ public class AtividadesActivity extends Activity {
 		return true;
 	}
 	
+	public class OnAtividadeListener implements OnItemClickListener {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, final int position,
+				long id) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(AtividadesActivity.this);
+			ArrayAdapter<String> adapterOpcoes = new ArrayAdapter<String>(AtividadesActivity.this, android.R.layout.simple_list_item_1, OPCOES_ATIVIDADE);
+			builder.setAdapter(adapterOpcoes, new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					switch (which){
+					case EXCLUIR:
+						daoAtividade.remover(atividades.get(position).getId());
+						adapterAtividades.remove(atividades.get(position));
+						adapterAtividades.notifyDataSetChanged();
+						break;
+					case EDITAR:
+						AlertDialog.Builder alert = new AlertDialog.Builder(AtividadesActivity.this);
+
+						alert.setTitle("Editar Atividade");
+						alert.setMessage("Digite o nome da atividade: ");
+						
+						final EditText input = new EditText(AtividadesActivity.this);
+						input.setText(atividades.get(position).getNome());
+						alert.setView(input);
+						
+						alert.setPositiveButton("OK", new OnClickListener() {
+							
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								
+								Atividade atividade = atividades.get(position);
+								atividade.setNome(input.getText().toString());
+								daoAtividade.update(atividade);
+								adapterAtividades.notifyDataSetChanged();
+								setResult(RESULT_OK);
+							}
+						});
+						
+						alert.setNegativeButton("Cancelar", new OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+							}
+						});
+						
+						alert.show();
+						break;
+					}
+				}
+			});
+			builder.create();
+			builder.show();
+		}
+	}
+	
 	private void carregarComponentes(){
 		this.lvAtividades = (ListView) findViewById(R.id.lvAtividades);
 	}
 	
 	private void carregarListenners(){
-		
+		this.lvAtividades.setOnItemClickListener(new OnAtividadeListener());
 	}
 	
 	private void carregaBanco(){
