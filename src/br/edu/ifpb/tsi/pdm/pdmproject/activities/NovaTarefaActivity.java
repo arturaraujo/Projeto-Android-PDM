@@ -109,6 +109,7 @@ public class NovaTarefaActivity extends Activity {
 		this.switchDefinirLembrete.setOnClickListener(new OnClickSwitch());
 		this.btnDefinirDataTarefa.setOnClickListener(new OnDataClickListener());
 		this.btnDefinirDataNotificacao.setOnClickListener(new OnDataClickListener());
+		this.btnDefinirHoraNotificacao.setOnClickListener(new OnHoraClickListener());
 		//this.btnDefinirHoraNotificacao.setOnClickListener(l);
 		this.date = new DataListenerTarefa();
 	}
