@@ -186,6 +186,17 @@ public class NovaTarefaActivity extends Activity {
 		
 	}
 	
+	public class OnHoraClickListener implements OnClickListener{
+
+		@Override
+		public void onClick(View v) {
+			new TimePickerDialog(NovaTarefaActivity.this, time, 
+					calendarNotificacao.get(Calendar.HOUR_OF_DAY),
+					calendarNotificacao.get(Calendar.MINUTE), true).show();
+		}
+		
+	}
+	
 	public class HoraListenerTarefa implements OnTimeSetListener{
 
 		@Override
@@ -224,16 +235,15 @@ public class NovaTarefaActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			Calendar notificacao = Calendar.getInstance();
-			notificacao.add(Calendar.SECOND, 7);
-			Tarefa tarefa =  new Tarefa(atividades.get(posicaoAtividade), disciplinas.get(posicaoDisciplina), calendarTarefa, notificacao);
+			//Calendar notificacao = Calendar.getInstance();
+			//notificacao.add(Calendar.SECOND, 7);
+			Tarefa tarefa =  new Tarefa(atividades.get(posicaoAtividade), disciplinas.get(posicaoDisciplina), calendarTarefa, calendarNotificacao);
 			
 			daoTarefa.inserir(tarefa);
 			
 			Intent intent = new Intent(NovaTarefaActivity.this, AlarmReceiver.class);
 			intent.putExtra("ATIVIDADE", tarefa.getAtividade().toString());
 			intent.putExtra("DISCIPLINA", tarefa.getDisciplina().toString());
-			//dialog.setItems(itemsId, listener)
 			
 			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 			String dataHora = format.format(tarefa.getDataHora().getTime());
@@ -241,12 +251,10 @@ public class NovaTarefaActivity extends Activity {
 			
 			PendingIntent pi = PendingIntent.getBroadcast(NovaTarefaActivity.this, 0, intent, 0);
 			AlarmManager manager = (AlarmManager)getSystemService(ALARM_SERVICE);
-			manager.set(AlarmManager.RTC, notificacao.getTimeInMillis(), pi);
+			manager.set(AlarmManager.RTC, calendarNotificacao.getTimeInMillis(), pi);
 			
 			setResult(RESULT_OK);
 			finish();
-			
-			//TODO gerar notificação pra data setada.
 		}
 
 	}
