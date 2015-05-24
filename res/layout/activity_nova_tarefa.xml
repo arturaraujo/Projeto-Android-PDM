@@ -6,89 +6,136 @@
     android:orientation="vertical"
     tools:context="${relativePackage}.${activityClass}" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tvNovaTarefa"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="2" >
+        android:layout_weight="1"
+        android:text="@string/strNovaTarefa"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <TextView
-            android:id="@+id/tvDisciplina"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/strAtividade"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_weight="2"
+        android:layout_height="0dp" >
 
         <Spinner
             android:id="@+id/spnAtividade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2" >
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4" />
 
         <TextView
             android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/strDisciplina"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:text="@string/strDe"
+            android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Spinner
             android:id="@+id/spnDisciplina"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4" />
 
     </LinearLayout>
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2" >
+        android:layout_weight="3" >
 
         <TextView
-            android:id="@+id/txtDataHora"
+            android:id="@+id/tvEm"
             android:layout_width="0dp"
-            android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="@string/strDataHora"
+            android:layout_weight="2"
+            android:text="@string/strEm"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <EditText
-            android:id="@+id/etDataTarefa"
+        <TextView
+            android:id="@+id/tvDataTarefa"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:ems="10"
-            android:inputType="date" >
+            android:text="@string/strEmpty"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            <requestFocus />
-        </EditText>
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/strDefinir" />
 
     </LinearLayout>
-    
+
+    <Switch
+        android:id="@+id/swDefinirAtividade"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/strDefinirLembrete" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2" >
+        android:layout_weight="1.5" >
 
         <TextView
-            android:id="@+id/txtDataHoraNotificacao"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/strLembrete"
+            android:text="@string/strEm" />
+
+        <TextView
+            android:id="@+id/tvDataNotificacao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/strEmpty"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
+        <Button
+            android:id="@+id/btnDefinirData"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/strDefinir" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5" >
+
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/strAs" />
+
+        <TextView
+            android:id="@+id/tvHoraNotificacao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/strEmpty"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <Button
+            android:id="@+id/btnDefinirHora"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/strDefinir" />
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnOkNovaTarefa"
+        android:id="@+id/btnOk"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:text="@string/strOk" />
 
 </LinearLayout>

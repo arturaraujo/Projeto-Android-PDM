@@ -1,7 +1,5 @@
 package br.edu.ifpb.tsi.pdm.pdmproject.service;
 
-import br.edu.ifpb.tsi.pdm.pdmproject.R;
-import br.edu.ifpb.tsi.pdm.pdmproject.R.drawable;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
@@ -9,6 +7,7 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
+import br.edu.ifpb.tsi.pdm.pdmproject.R;
 
 public class AlarmService extends Service{
 
@@ -31,6 +30,7 @@ public class AlarmService extends Service{
 		notification.setAutoCancel(true);
 
 		mManager.notify(0, notification.build());
+		stopSelf();
 		return super.onStartCommand(intent, flags, startId);
 	}
 
