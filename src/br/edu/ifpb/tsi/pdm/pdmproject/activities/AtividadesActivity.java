@@ -80,7 +80,6 @@ public class AtividadesActivity extends Activity {
 			});
 			
 			alert.setNegativeButton("Cancelar", new OnClickListener() {
-				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 				}

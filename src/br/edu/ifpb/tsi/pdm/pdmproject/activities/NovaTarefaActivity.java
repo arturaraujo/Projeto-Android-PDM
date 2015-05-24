@@ -7,6 +7,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -39,7 +40,9 @@ public class NovaTarefaActivity extends Activity {
 	TimePicker timePickerHoraNotificacao;
 	Switch switchDefinirLembrete;
 	TextView tvDataTarefa, tvDataNotificacao, tvHoraNotificacao;
-	Button btnDefinirDataNotificacao, btnDefinirHoraNotificacao, btnCriar;
+	Button btnDefinirDataTarefa, btnDefinirDataNotificacao, btnDefinirHoraNotificacao, btnCriar;
+	
+	DatePickerDialog.OnDateSetListener date;
 
 	AtividadeDAO daoAtividade;
 	DisciplinaDAO daoDisciplina;
@@ -50,8 +53,9 @@ public class NovaTarefaActivity extends Activity {
 	List<Atividade> atividades;
 	boolean notificacao;
 	
-	Calendar calendar = Calendar.getInstance(); //TODO tirar isso
-	SimpleDateFormat formatData = new SimpleDateFormat("dd/MM/yyyy");
+	Calendar calendarTarefa = Calendar.getInstance();
+	Calendar calendarNotificacao = Calendar.getInstance();
+	SimpleDateFormat formatData = new SimpleDateFormat("EE, dd/MM/yyyy");
 	SimpleDateFormat formatHora = new SimpleDateFormat("HH:mm");
 
 	@Override
@@ -67,8 +71,6 @@ public class NovaTarefaActivity extends Activity {
 
 		this.disciplinas = daoDisciplina.get();
 		setSpinnerDisciplina(spnDisciplina, disciplinas);
-		//TODO Setar datas
-		//TODO Setar as notifica��es
 	}
 
 	
@@ -76,16 +78,17 @@ public class NovaTarefaActivity extends Activity {
 		this.spnAtividade = (Spinner) findViewById(R.id.spnAtividade);
 		this.spnDisciplina = (Spinner) findViewById(R.id.spnDisciplina);
 		this.tvDataTarefa = (TextView) findViewById(R.id.tvDataTarefa);
+		this.btnDefinirDataTarefa = (Button) findViewById(R.id.btnDefinirDataTarefa);
 		this.switchDefinirLembrete = (Switch) findViewById(R.id.swDefinirAtividade);
 		this.tvDataNotificacao = (TextView) findViewById(R.id.tvDataNotificacao);
 		this.btnDefinirDataNotificacao = (Button) findViewById(R.id.btnDefinirData);
 		this.tvHoraNotificacao = (TextView) findViewById(R.id.tvHoraNotificacao);
 		this.btnDefinirHoraNotificacao = (Button) findViewById(R.id.btnDefinirHora);
 		
-		this.tvDataTarefa.setText(formatData.format(calendar.getTime()));
-		this.tvDataNotificacao.setText(formatData.format(calendar.getTime()));
-		this.tvDataTarefa.setText(formatData.format(calendar.getTime()));
-		this.tvHoraNotificacao.setText(formatHora.format(calendar.getTime()));
+		this.tvDataTarefa.setText(formatData.format(calendarTarefa.getTime()));
+		this.tvDataNotificacao.setText(formatData.format(calendarTarefa.getTime()));
+		this.tvDataTarefa.setText(formatData.format(calendarTarefa.getTime()));
+		this.tvHoraNotificacao.setText(formatHora.format(calendarTarefa.getTime()));
 		
 		this.habilitarNotificacao(false);
 
@@ -101,6 +104,10 @@ public class NovaTarefaActivity extends Activity {
 	private void setListeners(){
 		this.btnCriar.setOnClickListener(new OnClickBotao());
 		this.switchDefinirLembrete.setOnClickListener(new OnClickSwitch());
+		this.btnDefinirDataTarefa.setOnClickListener(new OnDataClickListener());
+		this.btnDefinirDataNotificacao.setOnClickListener(new OnDataClickListener());
+		//this.btnDefinirHoraNotificacao.setOnClickListener(l);
+		this.date = new DataListenerTarefa();
 	}
 	
 	private void habilitarNotificacao(boolean enabled){
@@ -108,11 +115,12 @@ public class NovaTarefaActivity extends Activity {
 //		this.btnDefinirDataNotificacao.setEnabled(enabled);
 //		this.tvHoraNotificacao.setEnabled(enabled);
 //		this.btnDefinirHoraNotificacao.setEnabled(enabled);
+		int visibility = enabled ? View.VISIBLE : View.INVISIBLE;
 		
-		this.tvDataNotificacao.setVisibility(View.INVISIBLE);
-		this.btnDefinirDataNotificacao.setVisibility(View.INVISIBLE);
-		this.tvHoraNotificacao.setVisibility(View.INVISIBLE);
-		this.btnDefinirHoraNotificacao.setVisibility(View.INVISIBLE);
+		this.tvDataNotificacao.setVisibility(visibility);
+		this.btnDefinirDataNotificacao.setVisibility(visibility);
+		this.tvHoraNotificacao.setVisibility(visibility);
+		this.btnDefinirHoraNotificacao.setVisibility(visibility);
 		notificacao = enabled;
 	}
 
@@ -163,13 +171,49 @@ public class NovaTarefaActivity extends Activity {
 		}
 	}
 	
+	public class OnDataClickListener implements OnClickListener{
+
+		@Override
+		public void onClick(View v) {
+			new DatePickerDialog(NovaTarefaActivity.this, date,
+					calendarTarefa.get(Calendar.YEAR),
+					calendarTarefa.get(Calendar.MONTH),
+					calendarTarefa.get(Calendar.DAY_OF_MONTH)).show();
+		}
+		
+	}
+	
+	public class DataListenerTarefa implements OnDateSetListener{
+
+		@Override
+		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+			calendarTarefa.set(Calendar.YEAR, year);
+	        calendarTarefa.set(Calendar.MONTH, monthOfYear);
+	        calendarTarefa.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+			tvDataTarefa.setText(formatData.format(calendarTarefa.getTime()));
+		}
+		
+	}
+	
+	public class DataListenerNotificacao implements OnDateSetListener{
+
+		@Override
+		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+			calendarNotificacao.set(Calendar.YEAR, year);
+			calendarNotificacao.set(Calendar.MONTH, monthOfYear);
+	        calendarNotificacao.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+			tvDataNotificacao.setText(formatData.format(calendarTarefa.getTime()));
+		}
+		
+	}
+	
 	public class OnClickBotao implements OnClickListener{
 
 		@Override
 		public void onClick(View v) {
 			Calendar notificacao = Calendar.getInstance();
 			notificacao.add(Calendar.SECOND, 7);
-			Tarefa tarefa =  new Tarefa(atividades.get(posicaoAtividade), disciplinas.get(posicaoDisciplina), calendar, notificacao);
+			Tarefa tarefa =  new Tarefa(atividades.get(posicaoAtividade), disciplinas.get(posicaoDisciplina), calendarTarefa, notificacao);
 			
 			daoTarefa.inserir(tarefa);
 			
