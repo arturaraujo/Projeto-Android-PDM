@@ -38,6 +38,14 @@ public class AtividadesActivity extends Activity {
 		
 		this.atividades = daoAtividade.get();
 		
+		if (atividades == null || atividades.isEmpty()){
+			AlertDialog.Builder dialog =  new AlertDialog.Builder(this);
+			dialog.setTitle("Nenhuma atividade cadastrada");
+			dialog.setMessage("Acesse Menu -> Nova Atividade para cadastrar uma nova atividade!");
+			dialog.setNeutralButton("OK", null);
+			dialog.create().show();
+		}
+		
 		adapterAtividades = new ArrayAdapter<Atividade>(this, android.R.layout.simple_list_item_1, atividades);
 		this.lvAtividades.setAdapter(adapterAtividades);
 	}

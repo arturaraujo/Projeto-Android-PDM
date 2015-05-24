@@ -12,10 +12,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 import br.edu.ifpb.tsi.pdm.pdmproject.R;
-import br.edu.ifpb.tsi.pdm.pdmproject.R.id;
-import br.edu.ifpb.tsi.pdm.pdmproject.R.layout;
 import br.edu.ifpb.tsi.pdm.pdmproject.dao.DisciplinaDAO;
 import br.edu.ifpb.tsi.pdm.pdmproject.model.Disciplina;
 
@@ -35,11 +32,19 @@ public class DisciplinasActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_disciplinas);
 		
+		this.disciplinas = daoDisciplinas.get();
+		
+		if (disciplinas == null || disciplinas.isEmpty()){
+			AlertDialog.Builder dialog =  new AlertDialog.Builder(this);
+			dialog.setTitle("Nenhuma disciplina cadastrada");
+			dialog.setMessage("Acesse Menu -> Nova Disciplina para cadastrar uma nova diciplina!");
+			dialog.setNeutralButton("OK", null);
+			dialog.create().show();
+		}
+		
 		this.carregarComponentes();
 		this.carregarListenners();
 		this.carregaBanco();
-		
-		this.disciplinas = daoDisciplinas.get();
 		
 		adapterDisciplinas = new ArrayAdapter<Disciplina>(this, android.R.layout.simple_list_item_1, disciplinas);
 		this.lvDisciplinas.setAdapter(adapterDisciplinas);
