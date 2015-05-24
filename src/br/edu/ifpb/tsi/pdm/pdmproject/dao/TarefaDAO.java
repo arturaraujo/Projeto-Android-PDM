@@ -25,7 +25,7 @@ public class TarefaDAO {
 		cv.put("id_atividade", tarefa.getAtividade().getId());
 		cv.put("id_disciplina", tarefa.getDisciplina().getId());
 		cv.put("datahora", tarefa.getDataHora().getTimeInMillis());
-		cv.put("dataHoraNotificacao", tarefa.getDataHoraNotificacao().getTimeInMillis());
+		cv.put("dataHoraNotificacao", tarefa.getDataHoraNotificacao() != null ? tarefa.getDataHoraNotificacao().getTimeInMillis() : null);
 		
 		banco.insert(TABELA_TAREFA, null, cv);
 	}

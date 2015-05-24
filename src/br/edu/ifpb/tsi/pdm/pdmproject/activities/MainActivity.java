@@ -112,12 +112,14 @@ public class MainActivity extends Activity {
 			}
 			
 			startActivityForResult(new Intent(this, NovaTarefaActivity.class), ID_MENU_NOVA_TAREFA);
+			atividades.getClass();
 			break;
 		case ID_MENU_GERENCIAR_ATIVIDADES:
-			startActivity(new Intent(this, AtividadesActivity.class));
+			startActivityForResult(new Intent(this, AtividadesActivity.class), ID_MENU_GERENCIAR_ATIVIDADES);
 			break;
 		case ID_MENU_GERENCIAR_DISCIPLINA:
 			startActivity(new Intent(this, DisciplinasActivity.class));
+			refreshAdapter();
 			break;
 		}
 		
@@ -128,9 +130,7 @@ public class MainActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK){
-			if(requestCode == ID_MENU_NOVA_TAREFA){
-				refreshAdapter();
-			}
+			refreshAdapter();
 		}
 	}
 	
