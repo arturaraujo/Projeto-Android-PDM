@@ -41,7 +41,8 @@ public class DisciplinasActivity extends Activity {
 		if (disciplinas == null || disciplinas.isEmpty()){
 			AlertDialog.Builder dialog =  new AlertDialog.Builder(this);
 			dialog.setTitle("Nenhuma Disciplina Cadastrada!");
-			dialog.setMessage("Acesse Menu -> Nova Disciplina para cadastrar uma nova diciplina!");
+			dialog.setMessage("Voce não tem nenhuma disciplina cadastrada. \n "
+					+ "Acesse Menu -> Nova Disciplina para cadastrar uma nova diciplina!");
 			dialog.setNeutralButton("OK", null);
 			dialog.create().show();
 		}

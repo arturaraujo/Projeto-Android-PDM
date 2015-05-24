@@ -93,8 +93,9 @@ public class MainActivity extends Activity {
 			
 			if (atividades == null || atividades.isEmpty()){
 				AlertDialog.Builder dialog =  new AlertDialog.Builder(this);
-				dialog.setTitle("Nenhuma atividade cadastrada");
-				dialog.setMessage("Para criar tarefas é necessário primeiro ter atividades cadastradas!");
+				dialog.setTitle("Nenhuma Atividade Cadastrada");
+				dialog.setMessage("Você não tem nenhuma atividade cadastrada. \n"
+						+ "Para criar tarefas é necessário primeiro ter atividades cadastradas!");
 				dialog.setNeutralButton("OK", null);
 				dialog.create().show();
 				break;
@@ -102,8 +103,9 @@ public class MainActivity extends Activity {
 			
 			if (disciplinas == null || disciplinas.isEmpty()){
 				AlertDialog.Builder dialog =  new AlertDialog.Builder(this);
-				dialog.setTitle("Nenhuma disciplina cadastrada");
-				dialog.setMessage("Para criar tarefas é necessário primeiro ter disciplina cadastradas!");
+				dialog.setTitle("Nenhuma Disciplina Cadastrada");
+				dialog.setMessage("Você não tem nenhuma disciplina cadastrada. \n"
+						+ " Para criar tarefas é necessário primeiro ter disciplina cadastradas!");
 				dialog.setNeutralButton("OK", null);
 				dialog.create().show();
 				break;

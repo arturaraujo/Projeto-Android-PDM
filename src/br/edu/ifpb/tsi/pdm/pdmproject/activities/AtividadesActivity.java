@@ -40,8 +40,9 @@ public class AtividadesActivity extends Activity {
 		
 		if (atividades == null || atividades.isEmpty()){
 			AlertDialog.Builder dialog =  new AlertDialog.Builder(this);
-			dialog.setTitle("Nenhuma atividade cadastrada");
-			dialog.setMessage("Acesse Menu -> Nova Atividade para cadastrar uma nova atividade!");
+			dialog.setTitle("Nenhuma Atividade Cadastrada");
+			dialog.setMessage("Você não tem nenhuma atividade cadastrada. \n"
+					+ "Acesse Menu -> Nova Atividade para cadastrar uma nova atividade!");
 			dialog.setNeutralButton("OK", null);
 			dialog.create().show();
 		}
