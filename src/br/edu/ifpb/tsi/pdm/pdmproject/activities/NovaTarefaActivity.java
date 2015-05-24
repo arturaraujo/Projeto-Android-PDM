@@ -104,10 +104,15 @@ public class NovaTarefaActivity extends Activity {
 	}
 	
 	private void habilitarNotificacao(boolean enabled){
-		this.tvDataNotificacao.setEnabled(enabled);
-		this.btnDefinirDataNotificacao.setEnabled(enabled);
-		this.tvHoraNotificacao.setEnabled(enabled);
-		this.btnDefinirHoraNotificacao.setEnabled(enabled);
+//		this.tvDataNotificacao.setEnabled(enabled);
+//		this.btnDefinirDataNotificacao.setEnabled(enabled);
+//		this.tvHoraNotificacao.setEnabled(enabled);
+//		this.btnDefinirHoraNotificacao.setEnabled(enabled);
+		
+		this.tvDataNotificacao.setVisibility(View.INVISIBLE);
+		this.btnDefinirDataNotificacao.setVisibility(View.INVISIBLE);
+		this.tvHoraNotificacao.setVisibility(View.INVISIBLE);
+		this.btnDefinirHoraNotificacao.setVisibility(View.INVISIBLE);
 		notificacao = enabled;
 	}
 
