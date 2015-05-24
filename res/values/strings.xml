@@ -19,7 +19,7 @@
     <string name="strDefinirLembrete">"Definir notificação para tarefa: "</string>
     <string name="strDefinir">Definir</string>
     <string name="strNovaTarefa">"Nova Tarefa: "</string>
-    <string name="strEmpty"></string>
+    <string name="strEmpty">dd/MM/yyyy</string>
     <string name="strAs">&quot; Ás: &quot;</string>
 
 </resources>

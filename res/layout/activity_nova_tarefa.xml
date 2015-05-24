@@ -15,14 +15,14 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_weight="1.6"
         android:layout_height="0dp" >
 
         <Spinner
             android:id="@+id/spnAtividade"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="4" />
 
         <TextView
@@ -37,7 +37,7 @@
         <Spinner
             android:id="@+id/spnDisciplina"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="4" />
 
     </LinearLayout>
@@ -45,15 +45,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3" >
+        android:layout_weight="3.3" >
 
         <TextView
             android:id="@+id/tvEm"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="@string/strEm"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/strEm" />
 
         <TextView
             android:id="@+id/tvDataTarefa"
@@ -67,7 +67,7 @@
             android:id="@+id/button1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:text="@string/strDefinir" />
 
     </LinearLayout>
@@ -82,25 +82,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.5" >
+        android:layout_weight="1.3" >
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/strEm" />
 
         <TextView
             android:id="@+id/tvDataNotificacao"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:text="@string/strEmpty"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Button
             android:id="@+id/btnDefinirData"
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/strDefinir" />
 
@@ -109,17 +112,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.5" >
+        android:layout_weight="1.3" >
 
         <TextView
             android:id="@+id/TextView01"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/strAs" />
 
         <TextView
             android:id="@+id/tvHoraNotificacao"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="2"
             android:layout_height="wrap_content"
             android:text="@string/strEmpty"
             android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -127,7 +132,8 @@
         <Button
             android:id="@+id/btnDefinirHora"
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/strDefinir" />
     </LinearLayout>
