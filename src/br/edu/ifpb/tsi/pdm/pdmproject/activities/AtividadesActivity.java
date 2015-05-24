@@ -5,7 +5,6 @@ import java.util.List;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.view.Menu;
@@ -85,10 +84,12 @@ public class AtividadesActivity extends Activity {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					Atividade atividade = new Atividade(input.getText().toString());
-					daoAtividade.inserir(atividade);
-					adapterAtividades.add(daoAtividade.ler(atividade.getNome()));
-					adapterAtividades.notifyDataSetChanged();
+					if (!input.getText().toString().trim().equals("")){
+						Atividade atividade = new Atividade(input.getText().toString());
+						daoAtividade.inserir(atividade);
+						adapterAtividades.add(daoAtividade.ler(atividade.getNome()));
+						adapterAtividades.notifyDataSetChanged();
+					}
 				}
 			});
 			
@@ -123,6 +124,7 @@ public class AtividadesActivity extends Activity {
 						daoAtividade.remover(atividades.get(position).getId());
 						adapterAtividades.remove(atividades.get(position));
 						adapterAtividades.notifyDataSetChanged();
+						setResult(RESULT_OK);
 						break;
 					case EDITAR:
 						AlertDialog.Builder alert = new AlertDialog.Builder(AtividadesActivity.this);
@@ -138,12 +140,13 @@ public class AtividadesActivity extends Activity {
 							
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-								
-								Atividade atividade = atividades.get(position);
-								atividade.setNome(input.getText().toString());
-								daoAtividade.update(atividade);
-								adapterAtividades.notifyDataSetChanged();
-								setResult(RESULT_OK);
+								if (!input.getText().toString().trim().equals("")) {
+									Atividade atividade = atividades.get(position);
+									atividade.setNome(input.getText().toString());
+									daoAtividade.update(atividade);
+									adapterAtividades.notifyDataSetChanged();
+									setResult(RESULT_OK);
+								}
 							}
 						});
 						

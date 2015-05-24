@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import br.edu.ifpb.tsi.pdm.pdmproject.model.Atividade;
 import br.edu.ifpb.tsi.pdm.pdmproject.model.Disciplina;
 
 public class DisciplinaDAO{
@@ -23,6 +24,13 @@ public class DisciplinaDAO{
 		cv.put("nome", disciplina.getNome());
 
 		banco.insert(TABELA_DISCIPLINA, null, cv);
+	}
+	
+	public void update(Disciplina disciplina){
+		ContentValues cv = new ContentValues();
+		cv.put("nome", disciplina.getNome());
+		String[] idDisciplina = {disciplina.getId() + ""};
+		this.banco.update(TABELA_DISCIPLINA, cv, " id = ?", idDisciplina);
 	}
 
 	public void remover(int id) {

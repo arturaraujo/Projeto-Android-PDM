@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class BancoHelper extends SQLiteOpenHelper {
-	private static final int VERSAO_BANCO = 3;
+	private static final int VERSAO_BANCO = 5;
 	private static final String NOME_BANCO = "tarefas.db";
 
 	public BancoHelper(Context context) {
@@ -22,7 +22,7 @@ public class BancoHelper extends SQLiteOpenHelper {
 				"CREATE TABLE tarefa (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, id_atividade INTEGER, "
 						+ "id_disciplina INTEGER, dataHora DATETIME, dataHoraNotificacao DATETIME, "
 						+ "FOREIGN KEY(id_disciplina) REFERENCES disciplina(id), "
-						+ "FOREIGN KEY(id_atividade) REFERENCES atividade(id)) " };
+						+ "FOREIGN KEY(id_atividade) REFERENCES atividade(id))" };
 
 		for (String s : sql) {
 			db.execSQL(s);

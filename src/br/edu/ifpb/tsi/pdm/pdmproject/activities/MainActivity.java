@@ -112,13 +112,12 @@ public class MainActivity extends Activity {
 			}
 			
 			startActivityForResult(new Intent(this, NovaTarefaActivity.class), ID_MENU_NOVA_TAREFA);
-			atividades.getClass();
 			break;
 		case ID_MENU_GERENCIAR_ATIVIDADES:
 			startActivityForResult(new Intent(this, AtividadesActivity.class), ID_MENU_GERENCIAR_ATIVIDADES);
 			break;
 		case ID_MENU_GERENCIAR_DISCIPLINA:
-			startActivity(new Intent(this, DisciplinasActivity.class));
+			startActivityForResult(new Intent(this, DisciplinasActivity.class), ID_MENU_GERENCIAR_DISCIPLINA);
 			refreshAdapter();
 			break;
 		}
