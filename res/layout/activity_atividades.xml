@@ -6,6 +6,13 @@
     android:orientation="vertical"
     tools:context="${relativePackage}.${activityClass}" >
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/strAtividades"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
     <ListView
         android:id="@+id/lvAtividades"
         android:layout_width="match_parent"

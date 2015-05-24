@@ -2,8 +2,7 @@
 <resources>
 
     <string name="app_name">Agenda</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="strProximasTarefas">Proximas Tarefas</string>
+    <string name="strProximasTarefas">Proximas Tarefas: </string>
     <string name="title_activity_nova_tarefa">Criar Nova Tarefa</string>
     <string name="strDisciplina">Disciplina</string>
     <string name="strAtividade">Atividade: </string>
@@ -12,7 +11,7 @@
     <string name="strOk">OK</string>
     <string name="title_activity_atividades">Lista de Atividades</string>
     <string name="title_activity_disciplinas">Lista de Disciplinas</string>
-    <string name="strDisciplinas">Disciplinas</string>
+    <string name="strDisciplinas">Disciplinas Cadastradas: </string>
     <string name="strData">"Data: "</string>
     <string name="strDe">" de: "</string>
     <string name="strEm">&quot; Em: &quot;</string>
@@ -21,5 +20,6 @@
     <string name="strNovaTarefa">"Nova Tarefa: "</string>
     <string name="strEmpty">dd/MM/yyyy</string>
     <string name="strAs">&quot; Ás: &quot;</string>
+    <string name="strAtividades">Atividades Cadastradas</string>
 
 </resources>
