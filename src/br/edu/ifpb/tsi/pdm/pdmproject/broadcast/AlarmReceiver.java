@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 
 public class AlarmReceiver extends BroadcastReceiver {
-
-	Context context;
 	
 	@Override
 	public void onReceive(Context context, Intent intent) {

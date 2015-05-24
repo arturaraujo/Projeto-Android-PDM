@@ -12,10 +12,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 import br.edu.ifpb.tsi.pdm.pdmproject.R;
-import br.edu.ifpb.tsi.pdm.pdmproject.R.id;
-import br.edu.ifpb.tsi.pdm.pdmproject.R.layout;
 import br.edu.ifpb.tsi.pdm.pdmproject.dao.AtividadeDAO;
 import br.edu.ifpb.tsi.pdm.pdmproject.model.Atividade;
 

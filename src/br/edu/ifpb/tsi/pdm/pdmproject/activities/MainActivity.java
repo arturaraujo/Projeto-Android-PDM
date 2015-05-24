@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -119,7 +118,6 @@ public class MainActivity extends Activity {
 			builder.setAdapter(adapterOpcoes, new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					Log.i("tag", "Menu selecionado: " + which);
 					switch (which){
 					case EXCLUIR:
 						daoTarefa.remover(tarefas.get(position).getId());
@@ -131,7 +129,7 @@ public class MainActivity extends Activity {
 						intent.setType("text/plain");
 						intent.putExtra(Intent.EXTRA_TEXT, tarefas.get(position).toString());
 						
-						startActivity(Intent.createChooser(intent, "Como voce quer compartilhar?"));
+						startActivity(Intent.createChooser(intent, "Compartilhar tarefa"));
 					}
 				}
 			});
