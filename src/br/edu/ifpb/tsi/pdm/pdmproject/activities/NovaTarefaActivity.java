@@ -205,6 +205,7 @@ public class NovaTarefaActivity extends Activity {
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			calendarNotificacao.set(Calendar.HOUR_OF_DAY, hourOfDay);
 			calendarNotificacao.set(Calendar.MINUTE, minute);
+			calendarNotificacao.set(Calendar.SECOND, 0);
 			tvHoraNotificacao.setText(formatHora.format(calendarNotificacao.getTime()));
 		}
 	}
