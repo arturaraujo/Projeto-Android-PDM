@@ -32,19 +32,19 @@ public class DisciplinasActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_disciplinas);
 		
+		this.carregarComponentes();
+		this.carregarListenners();
+		this.carregaBanco();
+		
 		this.disciplinas = daoDisciplinas.get();
 		
 		if (disciplinas == null || disciplinas.isEmpty()){
 			AlertDialog.Builder dialog =  new AlertDialog.Builder(this);
-			dialog.setTitle("Nenhuma disciplina cadastrada");
+			dialog.setTitle("Nenhuma Disciplina Cadastrada!");
 			dialog.setMessage("Acesse Menu -> Nova Disciplina para cadastrar uma nova diciplina!");
 			dialog.setNeutralButton("OK", null);
 			dialog.create().show();
 		}
-		
-		this.carregarComponentes();
-		this.carregarListenners();
-		this.carregaBanco();
 		
 		adapterDisciplinas = new ArrayAdapter<Disciplina>(this, android.R.layout.simple_list_item_1, disciplinas);
 		this.lvDisciplinas.setAdapter(adapterDisciplinas);
