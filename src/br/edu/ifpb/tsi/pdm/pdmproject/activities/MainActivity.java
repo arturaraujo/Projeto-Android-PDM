@@ -161,6 +161,13 @@ public class MainActivity extends Activity {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					switch (which){
+					case VER:
+						AlertDialog.Builder dialogVer = new AlertDialog.Builder(MainActivity.this);
+						dialogVer.setTitle("Tarefa");
+						dialogVer.setMessage(tarefas.get(position).toString());
+						dialogVer.setPositiveButton("OK", null);
+						dialogVer.create().show();
+						break;
 					case EXCLUIR:
 						daoTarefa.remover(tarefas.get(position).getId());
 						adapterTarefas.remove(tarefas.get(position));
