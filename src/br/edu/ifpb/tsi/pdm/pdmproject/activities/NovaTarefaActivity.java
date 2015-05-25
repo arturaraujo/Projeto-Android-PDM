@@ -43,7 +43,7 @@ public class NovaTarefaActivity extends Activity {
 	Button btnDefinirDataTarefa, btnDefinirDataNotificacao, btnDefinirHoraNotificacao, btnCriar;
 	boolean notificacao;
 	
-	DatePickerDialog.OnDateSetListener date;
+	DatePickerDialog.OnDateSetListener dateTarefa, dateNotificacao;
 	TimePickerDialog.OnTimeSetListener time;
 
 	AtividadeDAO daoAtividade;
@@ -88,7 +88,6 @@ public class NovaTarefaActivity extends Activity {
 		
 		this.tvDataTarefa.setText(formatData.format(calendarTarefa.getTime()));
 		this.tvDataNotificacao.setText(formatData.format(calendarTarefa.getTime()));
-		this.tvDataTarefa.setText(formatData.format(calendarTarefa.getTime()));
 		this.tvHoraNotificacao.setText(formatHora.format(calendarTarefa.getTime()));
 		
 		this.habilitarNotificacao(false);
@@ -105,10 +104,11 @@ public class NovaTarefaActivity extends Activity {
 	private void setListeners(){
 		this.btnCriar.setOnClickListener(new OnClickBotao());
 		this.switchDefinirLembrete.setOnClickListener(new OnClickSwitch());
-		this.btnDefinirDataTarefa.setOnClickListener(new OnDataClickListener());
-		this.btnDefinirDataNotificacao.setOnClickListener(new OnDataClickListener());
+		this.btnDefinirDataTarefa.setOnClickListener(new OnDataTarefaClickListener());
+		this.btnDefinirDataNotificacao.setOnClickListener(new OnDataNotificacaoClickListener());
 		this.btnDefinirHoraNotificacao.setOnClickListener(new OnHoraClickListener());
-		this.date = new DataListenerTarefa();
+		this.dateTarefa = new DataListenerTarefa();
+		this.dateNotificacao = new DataListenerNotificacao();
 		this.time = new HoraListenerTarefa();
 	}
 	
@@ -169,11 +169,11 @@ public class NovaTarefaActivity extends Activity {
 		}
 	}
 	
-	public class OnDataClickListener implements OnClickListener{
+	public class OnDataTarefaClickListener implements OnClickListener{
 
 		@Override
 		public void onClick(View v) {
-			new DatePickerDialog(NovaTarefaActivity.this, date,
+			new DatePickerDialog(NovaTarefaActivity.this, dateTarefa,
 					calendarTarefa.get(Calendar.YEAR),
 					calendarTarefa.get(Calendar.MONTH),
 					calendarTarefa.get(Calendar.DAY_OF_MONTH)).show();
@@ -181,10 +181,50 @@ public class NovaTarefaActivity extends Activity {
 		
 	}
 	
-	public class OnHoraClickListener implements OnClickListener{
+	public class OnDataNotificacaoClickListener implements OnClickListener{
 
 		@Override
 		public void onClick(View v) {
+			DatePickerDialog dialog = 
+			new DatePickerDialog(NovaTarefaActivity.this, dateNotificacao,
+					calendarNotificacao.get(Calendar.YEAR),
+					calendarNotificacao.get(Calendar.MONTH),
+					calendarNotificacao.get(Calendar.DAY_OF_MONTH));
+			dialog.getDatePicker().setMinDate(calendarTarefa.getTimeInMillis());
+			dialog.show();
+		}
+		
+	}
+
+	public class DataListenerTarefa implements OnDateSetListener{
+
+		@Override
+		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+			calendarTarefa.set(Calendar.YEAR, year);
+	        calendarTarefa.set(Calendar.MONTH, monthOfYear);
+	        calendarTarefa.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+	        
+			tvDataTarefa.setText(formatData.format(calendarTarefa.getTime()));
+		}
+		
+	}
+	
+	public class DataListenerNotificacao implements OnDateSetListener{
+
+		@Override
+		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+			calendarNotificacao.set(Calendar.YEAR, year);
+			calendarNotificacao.set(Calendar.MONTH, monthOfYear);
+	        calendarNotificacao.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+			tvDataNotificacao.setText(formatData.format(calendarNotificacao.getTime()));
+		}
+		
+	}
+	
+	public class OnHoraClickListener implements OnClickListener{
+
+		@Override
+		public void onClick(View v) { 
 			new TimePickerDialog(NovaTarefaActivity.this, time, 
 					calendarNotificacao.get(Calendar.HOUR_OF_DAY),
 					calendarNotificacao.get(Calendar.MINUTE), true).show();
@@ -201,30 +241,6 @@ public class NovaTarefaActivity extends Activity {
 			calendarNotificacao.set(Calendar.SECOND, 0);
 			tvHoraNotificacao.setText(formatHora.format(calendarNotificacao.getTime()));
 		}
-	}
-	
-	public class DataListenerTarefa implements OnDateSetListener{
-
-		@Override
-		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-			calendarTarefa.set(Calendar.YEAR, year);
-	        calendarTarefa.set(Calendar.MONTH, monthOfYear);
-	        calendarTarefa.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-			tvDataTarefa.setText(formatData.format(calendarTarefa.getTime()));
-		}
-		
-	}
-	
-	public class DataListenerNotificacao implements OnDateSetListener{
-
-		@Override
-		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-			calendarNotificacao.set(Calendar.YEAR, year);
-			calendarNotificacao.set(Calendar.MONTH, monthOfYear);
-	        calendarNotificacao.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-			tvDataNotificacao.setText(formatData.format(calendarTarefa.getTime()));
-		}
-		
 	}
 	
 	public class OnClickBotao implements OnClickListener{

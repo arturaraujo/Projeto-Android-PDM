@@ -32,9 +32,8 @@ public class MainActivity extends Activity {
 	private static final String MENU_GERENCIAR_DISCIPLINA = "Gerenciar Disciplinas";
 	private static final String MENU_GERENCIAR_ATIVIDADES = "Gerenciar Atividades";
 	
-	private static final String[] OPCOES_TAREFA = {"Ver", /*"Editar", */"Excluir", "Compartilhar"};
-	
-	//private static final int EDITAR = 0;
+	private static final String[] OPCOES_TAREFA = {"Ver", "Excluir", "Compartilhar"};
+
 	private static final int VER = 0;
 	private static final int EXCLUIR = 1;
 	private static final int COMPARTILHAR = 2;
