@@ -197,7 +197,6 @@ public class NovaTarefaActivity extends Activity {
 					calendarNotificacao.get(Calendar.MONTH),
 					calendarNotificacao.get(Calendar.DAY_OF_MONTH));
 			dialog.getDatePicker().setMaxDate(calendarTarefa.getTimeInMillis());
-			dialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
 			dialog.show();
 		}
 		
