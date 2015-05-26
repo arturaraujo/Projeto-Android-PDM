@@ -20,6 +20,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -39,8 +41,9 @@ public class NovaTarefaActivity extends Activity {
 	
 	Spinner spnAtividade, spnDisciplina;
 	Switch switchDefinirLembrete;
-	TextView tvDataTarefa, tvDataNotificacao, tvHoraNotificacao;
+	TextView tvDataTarefa, tvDataNotificacao, tvHoraNotificacao, tvEm, tvAs;
 	Button btnDefinirDataTarefa, btnDefinirDataNotificacao, btnDefinirHoraNotificacao, btnCriar;
+	
 	boolean notificacao;
 	
 	DatePickerDialog.OnDateSetListener dateTarefa, dateNotificacao;
@@ -103,7 +106,7 @@ public class NovaTarefaActivity extends Activity {
 	
 	private void setListeners(){
 		this.btnCriar.setOnClickListener(new OnClickBotao());
-		this.switchDefinirLembrete.setOnClickListener(new OnClickSwitch());
+		this.switchDefinirLembrete.setOnCheckedChangeListener(new OnClickSwitch());
 		this.btnDefinirDataTarefa.setOnClickListener(new OnDataTarefaClickListener());
 		this.btnDefinirDataNotificacao.setOnClickListener(new OnDataNotificacaoClickListener());
 		this.btnDefinirHoraNotificacao.setOnClickListener(new OnHoraClickListener());
@@ -119,14 +122,22 @@ public class NovaTarefaActivity extends Activity {
 		this.btnDefinirDataNotificacao.setVisibility(visibility);
 		this.tvHoraNotificacao.setVisibility(visibility);
 		this.btnDefinirHoraNotificacao.setVisibility(visibility);
+		findViewById(R.id.tvEmDataNotificacao).setVisibility(visibility);
+		findViewById(R.id.tvEm).setVisibility(visibility);
 		this.notificacao = enabled;
 	}
 
-	private class OnClickSwitch implements OnClickListener{
+	private class OnClickSwitch implements OnCheckedChangeListener{
+
+//		@Override
+//		public void onClick(View v) {
+//			habilitarNotificacao(switchDefinirLembrete.isChecked());
+//		}
 
 		@Override
-		public void onClick(View v) {
-			habilitarNotificacao(switchDefinirLembrete.isChecked());
+		public void onCheckedChanged(CompoundButton buttonView,
+				boolean isChecked) {
+			habilitarNotificacao(isChecked);
 		}
 		
 	}
