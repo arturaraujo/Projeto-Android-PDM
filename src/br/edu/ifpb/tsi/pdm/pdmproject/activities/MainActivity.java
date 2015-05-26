@@ -1,7 +1,7 @@
 package br.edu.ifpb.tsi.pdm.pdmproject.activities;
 
 import java.util.List;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -152,6 +152,7 @@ public class MainActivity extends Activity {
 
 	public class OnAtividadeListener implements OnItemClickListener {
 
+		@SuppressLint("SimpleDateFormat")
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, final int position,
 				long id) {
@@ -160,23 +161,25 @@ public class MainActivity extends Activity {
 			builder.setAdapter(adapterOpcoes, new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
+					Tarefa tarefa = tarefas.get(position);
 					switch (which){
 					case VER:
 						AlertDialog.Builder dialogVer = new AlertDialog.Builder(MainActivity.this);
 						dialogVer.setTitle("Tarefa");
-						dialogVer.setMessage(tarefas.get(position).toString());
+						
+						dialogVer.setMessage(tarefa.toStringComNotificacao());
 						dialogVer.setPositiveButton("OK", null);
 						dialogVer.create().show();
 						break;
 					case EXCLUIR:
-						daoTarefa.remover(tarefas.get(position).getId());
-						adapterTarefas.remove(tarefas.get(position));
+						daoTarefa.remover(tarefa.getId());
+						adapterTarefas.remove(tarefa);
 						adapterTarefas.notifyDataSetChanged();
 						break;
 					case COMPARTILHAR:
 						Intent intent = new Intent(Intent.ACTION_SEND);
 						intent.setType("text/plain");
-						intent.putExtra(Intent.EXTRA_TEXT, tarefas.get(position).toString());
+						intent.putExtra(Intent.EXTRA_TEXT, tarefa.toString());
 						
 						startActivity(Intent.createChooser(intent, "Compartilhar tarefa"));
 					}

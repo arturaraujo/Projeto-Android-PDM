@@ -1,7 +1,10 @@
 package br.edu.ifpb.tsi.pdm.pdmproject.model;
 
+import android.annotation.SuppressLint;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+@SuppressLint("SimpleDateFormat")
 public class Tarefa {
 	private int id;
 	private Atividade atividade;
@@ -75,8 +78,20 @@ public class Tarefa {
 		StringBuilder string = new StringBuilder();
 		string.append(getAtividade().toString() + " de ");
 		string.append(this.disciplina + ". \n");
-		string.append("Data: " + this.dataHora.get(Calendar.DAY_OF_MONTH) + "/" +this.dataHora.get(Calendar.MONTH) + "/" + this.dataHora.get(Calendar.YEAR));
+		string.append("Data: " + new SimpleDateFormat("dd/MM/yyyy.").format(this.dataHora.getTime()));
 		
 		return string.toString();
+	}
+
+	public String toStringComNotificacao() {
+		if(this.dataHoraNotificacao != null && this.dataHoraNotificacao.getTimeInMillis() != 0){
+			return new StringBuilder().
+					append(this.toString()).
+					append("\nNotificação: ").
+					append(new SimpleDateFormat("dd/MM/yyyy HH:mm.").
+							format(this.dataHoraNotificacao.getTime())).toString();
+		} else 
+			return this.toString();
+		
 	}
 }
