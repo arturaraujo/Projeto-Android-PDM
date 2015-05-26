@@ -41,7 +41,7 @@ public class NovaTarefaActivity extends Activity {
 	
 	Spinner spnAtividade, spnDisciplina;
 	Switch switchDefinirLembrete;
-	TextView tvDataTarefa, tvDataNotificacao, tvHoraNotificacao, tvEm, tvAs;
+	TextView tvDataTarefa, tvDataNotificacao, tvHoraNotificacao;
 	Button btnDefinirDataTarefa, btnDefinirDataNotificacao, btnDefinirHoraNotificacao, btnCriar;
 	
 	boolean notificacao;
@@ -122,17 +122,12 @@ public class NovaTarefaActivity extends Activity {
 		this.btnDefinirDataNotificacao.setVisibility(visibility);
 		this.tvHoraNotificacao.setVisibility(visibility);
 		this.btnDefinirHoraNotificacao.setVisibility(visibility);
-		findViewById(R.id.tvEmDataNotificacao).setVisibility(visibility);
 		findViewById(R.id.tvEm).setVisibility(visibility);
+		findViewById(R.id.tvAs).setVisibility(visibility);
 		this.notificacao = enabled;
 	}
 
 	private class OnClickSwitch implements OnCheckedChangeListener{
-
-//		@Override
-//		public void onClick(View v) {
-//			habilitarNotificacao(switchDefinirLembrete.isChecked());
-//		}
 
 		@Override
 		public void onCheckedChanged(CompoundButton buttonView,
@@ -202,6 +197,7 @@ public class NovaTarefaActivity extends Activity {
 					calendarNotificacao.get(Calendar.MONTH),
 					calendarNotificacao.get(Calendar.DAY_OF_MONTH));
 			dialog.getDatePicker().setMaxDate(calendarTarefa.getTimeInMillis());
+			dialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
 			dialog.show();
 		}
 		
